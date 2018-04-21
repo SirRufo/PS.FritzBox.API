@@ -115,7 +115,7 @@ namespace PS.FritzBox.API
         /// Method to set the user name
         /// </summary>
         /// <param name="userName">the new username</param>
-        public async void SetUserNameAsync(string userName)
+        public async Task SetUserNameAsync(string userName)
         {
             var parameter = new SoapRequestParameter("NewUserName", userName);
             XDocument document = await this.InvokeAsync("SetUserName", parameter);
