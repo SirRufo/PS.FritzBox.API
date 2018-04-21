@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+
+[assembly: InternalsVisibleTo( "PS.FritzBox.API.Tests" )]
 
 namespace PS.FritzBox.API
 {
