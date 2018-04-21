@@ -157,7 +157,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Method to request a ppp connection
         /// </summary>
-        public async void RequestConnectionAsync()
+        public async Task RequestConnectionAsync()
         {
             XDocument document = await this.InvokeAsync("RequestConnection", null);
         }
