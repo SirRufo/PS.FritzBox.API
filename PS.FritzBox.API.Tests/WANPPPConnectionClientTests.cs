@@ -26,5 +26,25 @@ namespace PS.FritzBox.API.Tests
             Assert.Equal( expected.LastConnectionError, actual.LastConnectionError );
             Assert.Equal( expected.Uptime, actual.Uptime );
         }
+
+        [Fact]
+        public async Task GetConnectionTypeInfoAsync_Test1()
+        {
+            var expected = new ConnectionTypeInfo
+            {
+                ConnectionType = ConnectionType.IP_Routed,
+                PossibleConnectionTypes = PossibleConnectionTypes.IP_Routed | PossibleConnectionTypes.IP_Bridged,
+            };
+
+            {
+                var s = expected.ToXmlContent();
+            }
+
+            var handler = new FakeHandler();
+            handler.Sending += ( s, e ) => { e.Response.Content = new StringContent( expected.ToXmlContent() ); };
+
+            var clt = new WANPPPConnectionClient( "https://fritz.box:453", 5000, handler );
+            var actual = await clt.GetConnectionTypeInfoAsync();
+        }
     }
 }

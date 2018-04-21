@@ -49,6 +49,15 @@ namespace PS.FritzBox.API.Tests.Utils
             sb.AppendFooter();
             return sb.ToString();
         }
+        public static string ToXmlContent( this ConnectionTypeInfo source )
+        {
+            var sb = new StringBuilder();
+            sb.AppendHeader();
+            sb.AppendValue( "New" + nameof( source.ConnectionType ), source.ConnectionType );
+            sb.AppendValue( "New" + nameof( source.PossibleConnectionTypes ), source.PossibleConnectionTypes );
+            sb.AppendFooter();
+            return sb.ToString();
+        }
     }
 
 }

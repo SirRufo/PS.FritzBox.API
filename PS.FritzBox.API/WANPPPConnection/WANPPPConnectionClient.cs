@@ -43,8 +43,8 @@ namespace PS.FritzBox.API
             info.ConnectionStatus.LastConnectionError = (ConnectionError)Enum.Parse( typeof( ConnectionError ), document.Descendants( "NewLastConnectionError" ).First().Value );
             info.ConnectionStatus.Uptime = Convert.ToUInt32( document.Descendants( "NewUptime" ).First().Value );
             // connecton type values
-            info.ConnectionType.ConnectionType = document.Descendants( "NewConnectionType" ).First().Value;
-            info.ConnectionType.PossibleConnectionTypes = document.Descendants( "NewPossibleConnectionTypes" ).First().Value;
+            info.ConnectionType.ConnectionType = (ConnectionType)Enum.Parse( typeof( ConnectionType ), document.Descendants( "NewConnectionType" ).First().Value );
+            info.ConnectionType.PossibleConnectionTypes = (PossibleConnectionTypes)Enum.Parse( typeof( PossibleConnectionTypes ), document.Descendants( "NewPossibleConnectionTypes" ).First().Value );
 
             // link layer max bitrate values
             info.LinkLayerMaxBitRates.DownstreamMaxBitRate = Convert.ToUInt32( document.Descendants( "NewDownstreamMaxBitRate" ).First().Value );
@@ -78,8 +78,8 @@ namespace PS.FritzBox.API
 
             XDocument document = await this.InvokeAsync( "GetConnectionTypeInfo", null ).ConfigureAwait( false );
 
-            info.ConnectionType = document.Descendants( "NewConnectionType" ).First().Value;
-            info.PossibleConnectionTypes = document.Descendants( "NewPossibleConnectionTypes" ).First().Value;
+            info.ConnectionType = (ConnectionType)Enum.Parse( typeof( ConnectionType ), document.Descendants( "NewConnectionType" ).First().Value );
+            info.PossibleConnectionTypes = (PossibleConnectionTypes)Enum.Parse( typeof( PossibleConnectionTypes ), document.Descendants( "NewPossibleConnectionTypes" ).First().Value );
 
             return info;
         }
