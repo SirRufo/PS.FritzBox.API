@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PS.FritzBox.API
 {
@@ -39,7 +36,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Gets the max upstream in bits per second
         /// </summary>
-        public UInt32 MaxUpStream { get; internal set; }        
+        public UInt32 MaxUpStream { get; internal set; }
         /// <summary>
         /// gets the last measures of upstream on default prio
         /// </summary>

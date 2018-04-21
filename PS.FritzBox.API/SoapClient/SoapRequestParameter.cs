@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PS.FritzBox.API
+﻿namespace PS.FritzBox.API
 {
     /// <summary>
     /// class representing soap request parameters
     /// </summary>
     internal class SoapRequestParameter
     {
-        public SoapRequestParameter(string name, object value)
+        public SoapRequestParameter( string name, object value )
         {
             this.ParameterName = name;
             this.ParameterValue = value;

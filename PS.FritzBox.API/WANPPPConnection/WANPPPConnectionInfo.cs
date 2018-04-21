@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PS.FritzBox.API
 {
@@ -31,7 +27,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Gets the idle disconnect time
         /// </summary>
-        public UInt32 IdleDisconnectTime { get; internal set; }        
+        public UInt32 IdleDisconnectTime { get; internal set; }
         /// <summary>
         /// Gets the user name
         /// </summary>

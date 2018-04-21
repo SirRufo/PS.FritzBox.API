@@ -16,7 +16,7 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <param name="url">the service base url</param>
         /// <param name="timeout">the service timeout</param>
-        public DeviceInfoClient(string url, int timeout) : base(url, timeout)
+        public DeviceInfoClient( string url, int timeout ) : base( url, timeout )
         {
         }
 
@@ -37,20 +37,20 @@ namespace PS.FritzBox.API
         public async Task<DeviceInfo> GetDeviceInfoAsync()
         {
             // call the device info here and fill it with data
-            XDocument document = await this.InvokeAsync("GetInfo", null);
+            XDocument document = await this.InvokeAsync( "GetInfo", null );
 
             DeviceInfo info = new DeviceInfo();
-            info.ManufacturerName = document.Descendants("NewManufacturerName").First().Value;
-            info.HardwareVersion = document.Descendants("NewHardwareVersion").First().Value;
-            info.Description = document.Descendants("NewDescription").First().Value;
-            info.ManufacturerOUI = document.Descendants("NewManufacturerOUI").First().Value;
-            info.ModelName = document.Descendants("NewModelName").First().Value;
-            info.ProductClass = document.Descendants("NewProductClass").First().Value;
-            info.SerialNumber = document.Descendants("NewSerialNumber").First().Value;
-            info.SoftwareVersion = document.Descendants("NewSoftwareVersion").First().Value;
-            info.SpecVersion = document.Descendants("NewSpecVersion").First().Value;
-            info.UpTime = Convert.ToUInt32(document.Descendants("NewUpTime").First().Value);
-            info.DeviceLog = document.Descendants("NewDeviceLog").First().Value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).AsEnumerable();
+            info.ManufacturerName = document.Descendants( "NewManufacturerName" ).First().Value;
+            info.HardwareVersion = document.Descendants( "NewHardwareVersion" ).First().Value;
+            info.Description = document.Descendants( "NewDescription" ).First().Value;
+            info.ManufacturerOUI = document.Descendants( "NewManufacturerOUI" ).First().Value;
+            info.ModelName = document.Descendants( "NewModelName" ).First().Value;
+            info.ProductClass = document.Descendants( "NewProductClass" ).First().Value;
+            info.SerialNumber = document.Descendants( "NewSerialNumber" ).First().Value;
+            info.SoftwareVersion = document.Descendants( "NewSoftwareVersion" ).First().Value;
+            info.SpecVersion = document.Descendants( "NewSpecVersion" ).First().Value;
+            info.UpTime = Convert.ToUInt32( document.Descendants( "NewUpTime" ).First().Value );
+            info.DeviceLog = document.Descendants( "NewDeviceLog" ).First().Value.Split( new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries ).AsEnumerable();
 
             return info;
         }
@@ -61,8 +61,8 @@ namespace PS.FritzBox.API
         /// <returns>the device log</returns>
         public async Task<IEnumerable<string>> GetDeviceLogAsync()
         {
-            XDocument document = await this.InvokeAsync("GetDeviceLog", null);
-            return document.Descendants("NewDeviceLog").First().Value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).AsEnumerable();
+            XDocument document = await this.InvokeAsync( "GetDeviceLog", null );
+            return document.Descendants( "NewDeviceLog" ).First().Value.Split( new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries ).AsEnumerable();
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace PS.FritzBox.API
         /// <returns>the security port</returns>
         public async Task<UInt16> GetSecurityPortAsync()
         {
-            XDocument document = await this.InvokeAsync("GetSecurityPort", null);
-            return Convert.ToUInt16(document.Descendants("NewSecurityPort").First().Value);
+            XDocument document = await this.InvokeAsync( "GetSecurityPort", null );
+            return Convert.ToUInt16( document.Descendants( "NewSecurityPort" ).First().Value );
         }
     }
 }

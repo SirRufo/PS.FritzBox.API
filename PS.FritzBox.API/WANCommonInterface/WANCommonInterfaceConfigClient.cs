@@ -8,7 +8,7 @@ namespace PS.FritzBox.API
 {
     public class WANCommonInterfaceConfigClient : FritzTR64Client
     {
-        public WANCommonInterfaceConfigClient(string url, int timeout) : base(url, timeout)
+        public WANCommonInterfaceConfigClient( string url, int timeout ) : base( url, timeout )
         {
         }
 
@@ -29,13 +29,13 @@ namespace PS.FritzBox.API
         /// <returns>the common link properties</returns>
         public async Task<CommonLinkProperties> GetCommonLinkPropertiesAsync()
         {
-            XDocument document = await this.InvokeAsync("GetCommonLinkProperties", null);
+            XDocument document = await this.InvokeAsync( "GetCommonLinkProperties", null );
 
             CommonLinkProperties properties = new CommonLinkProperties();
-            properties.WANAccessType = document.Descendants("NewWANAccessType").First().Value;
-            properties.PhysicalLinkStatus = document.Descendants("NewPhysicalLinkStatus").First().Value;
-            properties.Layer1DownstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewLayer1DownstreamMaxBitRate").First().Value);
-            properties.Layer1UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewLayer1UpstreamMaxBitRate").First().Value);
+            properties.WANAccessType = document.Descendants( "NewWANAccessType" ).First().Value;
+            properties.PhysicalLinkStatus = document.Descendants( "NewPhysicalLinkStatus" ).First().Value;
+            properties.Layer1DownstreamMaxBitRate = Convert.ToUInt32( document.Descendants( "NewLayer1DownstreamMaxBitRate" ).First().Value );
+            properties.Layer1UpstreamMaxBitRate = Convert.ToUInt32( document.Descendants( "NewLayer1UpstreamMaxBitRate" ).First().Value );
 
             return properties;
         }
@@ -47,8 +47,8 @@ namespace PS.FritzBox.API
         /// <returns>the total bytes sent</returns>
         public async Task<UInt32> GetTotalBytesSentAsync()
         {
-            XDocument document = await this.InvokeAsync("GetTotalBytesSent", null);
-            return Convert.ToUInt32(document.Descendants("NewTotalBytesSent").First().Value);
+            XDocument document = await this.InvokeAsync( "GetTotalBytesSent", null );
+            return Convert.ToUInt32( document.Descendants( "NewTotalBytesSent" ).First().Value );
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace PS.FritzBox.API
         /// <returns>the total bytes received</returns>
         public async Task<UInt32> GetTotalBytesReceivedAsync()
         {
-            XDocument document = await this.InvokeAsync("GetTotalBytesReceived", null);
-            return Convert.ToUInt32(document.Descendants("NewTotalBytesReceived").First().Value);
+            XDocument document = await this.InvokeAsync( "GetTotalBytesReceived", null );
+            return Convert.ToUInt32( document.Descendants( "NewTotalBytesReceived" ).First().Value );
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace PS.FritzBox.API
         /// <returns>the total packets sent</returns>
         public async Task<UInt32> GetTotalPacketsSentAsync()
         {
-            XDocument document = await this.InvokeAsync("GetTotalPacketsSent", null);
-            return Convert.ToUInt32(document.Descendants("NewTotalPacketsSent").First().Value);
+            XDocument document = await this.InvokeAsync( "GetTotalPacketsSent", null );
+            return Convert.ToUInt32( document.Descendants( "NewTotalPacketsSent" ).First().Value );
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace PS.FritzBox.API
         /// <returns>the total packets received</returns>
         public async Task<UInt32> GetTotalPacketsReceivedAsync()
         {
-            XDocument document = await this.InvokeAsync("GetTotalPacketsReceived", null);
-            return Convert.ToUInt32(document.Descendants("NewTotalPacketsReceived").First().Value);
+            XDocument document = await this.InvokeAsync( "GetTotalPacketsReceived", null );
+            return Convert.ToUInt32( document.Descendants( "NewTotalPacketsReceived" ).First().Value );
         }
 
         /// <summary>
@@ -89,9 +89,9 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <remarks>Internal invokes X_AVM-DE_SetWANAccessType on device</remarks>
         /// <param name="accessType">the new wan access type</param>
-        public async Task SetWANAccessTypeAsync(string accessType)
+        public async Task SetWANAccessTypeAsync( string accessType )
         {
-            XDocument document = await this.InvokeAsync("X_AVM-DE_SetWANAccessType", new SoapRequestParameter("NewAccessType", accessType));
+            XDocument document = await this.InvokeAsync( "X_AVM-DE_SetWANAccessType", new SoapRequestParameter( "NewAccessType", accessType ) );
         }
 
         /// <summary>
@@ -100,23 +100,23 @@ namespace PS.FritzBox.API
         /// <remarks>Internal invokes X_AVM-DE_GetOnlineMonitor on device</remarks>
         /// <param name="groupIndex">the group index to request the online monitor for</param>
         /// <returns>the online monitor info</returns>
-        public async Task<OnlineMonitorInfo> GetOnlineMonitorAsync(UInt32 groupIndex)
+        public async Task<OnlineMonitorInfo> GetOnlineMonitorAsync( UInt32 groupIndex )
         {
-            XDocument document = await this.InvokeAsync("X_AVM-DE_GetOnlineMonitor", new SoapRequestParameter("NewSyncGroupIndex", groupIndex));
+            XDocument document = await this.InvokeAsync( "X_AVM-DE_GetOnlineMonitor", new SoapRequestParameter( "NewSyncGroupIndex", groupIndex ) );
 
             OnlineMonitorInfo info = new OnlineMonitorInfo();
-            info.SyncGroupMode = document.Descendants("NewSyncGroupMode").First().Value;
-            info.SyncGroupName = document.Descendants("NewSyncGroupName").First().Value;
-            info.TotalNumberSyncGroups = Convert.ToUInt32(document.Descendants("NewTotalNumberSyncGroups").First().Value);
-            info.DownStream = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newds_current_bps").First().Value);
-            info.DownStream_Media = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newmc_current_bps").First().Value);
-            info.MaxUpStream = Convert.ToUInt32(document.Descendants("Newmax_us").First().Value);
-            info.MaxDownStream = Convert.ToUInt32(document.Descendants("Newmax_ds").First().Value);
-            info.UpStream = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newus_current_bps").First().Value);
-            info.UpstreamDefaultPrio = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newprio_default_bps").First().Value);
-            info.UpstreamHighPrio = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newprio_high_bps").First().Value);
-            info.UpstreamLowPrio = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newprio_low_bps").First().Value);
-            info.UpstreamRealtimePrio = await this.UpDownValuesToEnumerableAsync(document.Descendants("Newprio_realtime_bps").First().Value);
+            info.SyncGroupMode = document.Descendants( "NewSyncGroupMode" ).First().Value;
+            info.SyncGroupName = document.Descendants( "NewSyncGroupName" ).First().Value;
+            info.TotalNumberSyncGroups = Convert.ToUInt32( document.Descendants( "NewTotalNumberSyncGroups" ).First().Value );
+            info.DownStream = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newds_current_bps" ).First().Value );
+            info.DownStream_Media = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newmc_current_bps" ).First().Value );
+            info.MaxUpStream = Convert.ToUInt32( document.Descendants( "Newmax_us" ).First().Value );
+            info.MaxDownStream = Convert.ToUInt32( document.Descendants( "Newmax_ds" ).First().Value );
+            info.UpStream = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newus_current_bps" ).First().Value );
+            info.UpstreamDefaultPrio = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newprio_default_bps" ).First().Value );
+            info.UpstreamHighPrio = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newprio_high_bps" ).First().Value );
+            info.UpstreamLowPrio = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newprio_low_bps" ).First().Value );
+            info.UpstreamRealtimePrio = await this.UpDownValuesToEnumerableAsync( document.Descendants( "Newprio_realtime_bps" ).First().Value );
 
             return info;
         }
@@ -126,9 +126,9 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        private async Task<IEnumerable<UInt32>> UpDownValuesToEnumerableAsync(string values)
+        private async Task<IEnumerable<UInt32>> UpDownValuesToEnumerableAsync( string values )
         {
-            return values.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select((entry) => UInt32.Parse(entry.Trim())).AsEnumerable();
+            return values.Split( new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries ).Select( ( entry ) => UInt32.Parse( entry.Trim() ) ).AsEnumerable();
         }
     }
 }

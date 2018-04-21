@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PS.FritzBox.API
 {
     public class SoapFaultException : Exception
     {
-        public SoapFaultException(string faultCode, string faultString) : base(String.Format("{0}; {1}", faultCode, faultString))
+        public SoapFaultException( string faultCode, string faultString ) : base( String.Format( "{0}; {1}", faultCode, faultString ) )
         {
             this.FaultCode = faultCode;
             this.FaultString = faultString;

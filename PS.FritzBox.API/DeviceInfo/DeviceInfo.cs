@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PS.FritzBox.API
 {
@@ -54,7 +51,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Gets the start time
         /// </summary>
-        public DateTime StartTime { get { return DateTime.Now.AddSeconds(UpTime * -1); } }
+        public DateTime StartTime { get { return DateTime.Now.AddSeconds( UpTime * -1 ); } }
         /// <summary>
         /// Gets the device log
         /// </summary>

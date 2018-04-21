@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 
 namespace PS.FritzBox.API
 {
@@ -37,15 +35,15 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Gets or sets the network credentials
         /// </summary>
-        public System.Net.ICredentials Credentials { get { return String.IsNullOrEmpty(this.UserName) ? null : new System.Net.NetworkCredential(this.UserName, this.Password); } }
+        public System.Net.ICredentials Credentials { get { return String.IsNullOrEmpty( this.UserName ) ? null : new System.Net.NetworkCredential( this.UserName, this.Password ); } }
 
         /// <summary>
         /// Method to add a request parameter
         /// </summary>
         /// <param name="parameter">the request parameter</param>
-        public void AddParameter(SoapRequestParameter parameter)
+        public void AddParameter( SoapRequestParameter parameter )
         {
-            this.Parameters.Add(parameter);
+            this.Parameters.Add( parameter );
         }
 
         /// <summary>
@@ -53,9 +51,9 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <param name="parameter">the request parameter</param>
         /// <returns>true if the parameter has been removed successfully</returns>
-        public bool RemoveParameter(SoapRequestParameter parameter)
+        public bool RemoveParameter( SoapRequestParameter parameter )
         {
-            return this.Parameters.Remove(parameter);
+            return this.Parameters.Remove( parameter );
         }
     }
 }

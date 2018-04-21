@@ -17,9 +17,9 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <param name="url">the service url</param>
         /// <param name="timeout">the timeout in milliseconds</param>
-        public FritzTR64Client(string url, int timeout)
+        public FritzTR64Client( string url, int timeout )
         {
-            this.Url = String.Concat(url, this.ControlUrl);
+            this.Url = String.Concat( url, this.ControlUrl );
             this.Timeout = timeout;
         }
 
@@ -54,7 +54,7 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <param name="Action"></param>
         /// <returns></returns>
-        internal async Task<XDocument> InvokeAsync(string action, params SoapRequestParameter[] parameter)
+        internal async Task<XDocument> InvokeAsync( string action, params SoapRequestParameter[] parameter )
         {
             SoapClient client = new SoapClient();
             SoapRequestParameters parameters = new SoapRequestParameters();
@@ -65,24 +65,24 @@ namespace PS.FritzBox.API
             parameters.RequestNameSpace = this.RequestNameSpace;
             parameters.SoapAction = $"{this.RequestNameSpace}#{action}";
             parameters.Action = $"{action}";
-            if (parameter != null)
-                parameters.Parameters.AddRange(parameter);
+            if ( parameter != null )
+                parameters.Parameters.AddRange( parameter );
 
-            XDocument soapResult = await client.InvokeAsync(this.Url, parameters);
+            XDocument soapResult = await client.InvokeAsync( this.Url, parameters );
 
-            this.ParseSoapFault(soapResult);
+            this.ParseSoapFault( soapResult );
 
             return soapResult;
         }
 
-        internal void ParseSoapFault(XDocument document)
+        internal void ParseSoapFault( XDocument document )
         {
-            if (document.Descendants("Fault").Count() > 0)
+            if ( document.Descendants( "Fault" ).Count() > 0 )
             {
-                string code = document.Descendants("faultcode").First().Value;
-                string text = document.Descendants("faultstring").First().Value;
+                string code = document.Descendants( "faultcode" ).First().Value;
+                string text = document.Descendants( "faultstring" ).First().Value;
 
-                throw new SoapFaultException(code, text);
+                throw new SoapFaultException( code, text );
             }
         }
     }
