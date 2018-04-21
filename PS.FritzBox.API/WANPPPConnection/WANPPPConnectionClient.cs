@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using System.Xml.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace PS.FritzBox.API
 {
@@ -23,7 +21,7 @@ namespace PS.FritzBox.API
 
         /// <summary>
         /// Gets the request namespace
-        /// </summary>                                 
+        /// </summary>
         protected override string RequestNameSpace => "urn:dslforum-org:service:WANPPPConnection:1";
 
         /// <summary>
@@ -38,18 +36,18 @@ namespace PS.FritzBox.API
             // connection status values
             info.ConnectionStatus.ConnectionStatus = document.Descendants("NewConnectionStatus").First().Value;
             info.ConnectionStatus.LastConnectionError = document.Descendants("NewLastConnectionError").First().Value;
-            info.ConnectionStatus.Uptime = Convert.ToUInt32(document.Descendants("NewUpTime").First().Value);
+            info.ConnectionStatus.Uptime = Convert.ToUInt32(document.Descendants("NewUptime").First().Value);
             // connecton type values
             info.ConnectionType.ConnectionType = document.Descendants("NewConnectionType").First().Value;
             info.ConnectionType.PossibleConnectionTypes = document.Descendants("NewPossibleConnectionTypes").First().Value;
 
             // link layer max bitrate values
             info.LinkLayerMaxBitRates.DownstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewDownstreamMaxBitRate").First().Value);
-            info.LinkLayerMaxBitRates.UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("UpstreamMaxBitRate").First().Value);
+            info.LinkLayerMaxBitRates.UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewUpstreamMaxBitRate").First().Value);
 
-            // nat rsip 
-            info.NATRSIPStatus.RSIPAvailable = Convert.ToBoolean(document.Descendants("NewRSIPAvailable").First().Value);
-            info.NATRSIPStatus.NATEnabled = Convert.ToBoolean(document.Descendants("NewNATEnabled").First().Value);
+            // nat rsip
+            info.NATRSIPStatus.RSIPAvailable = Convert.ToBoolean(Convert.ToInt32(document.Descendants("NewRSIPAvailable").First().Value));
+            info.NATRSIPStatus.NATEnabled = Convert.ToBoolean(Convert.ToInt32(document.Descendants("NewNATEnabled").First().Value));
 
             info.ExternalIPAddress = document.Descendants("NewExternalIPAddress").First().Value;
             info.IdleDisconnectTime = Convert.ToUInt32(document.Descendants("NewIdleDisconnectTime").First().Value);
