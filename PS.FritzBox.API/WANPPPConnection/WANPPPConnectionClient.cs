@@ -125,7 +125,7 @@ namespace PS.FritzBox.API
         /// Method to set the password
         /// </summary>
         /// <param name="password">the new password</param>
-        public async void SetPasswordAsync(string password)
+        public async Task SetPasswordAsync(string password)
         {
             var parameter = new SoapRequestParameter("NewPassword", password);
             XDocument document = await this.InvokeAsync("SetPassword", parameter);
