@@ -140,8 +140,8 @@ namespace PS.FritzBox.API
             NATRSIPStatus status = new NATRSIPStatus();
             XDocument document = await this.Invoke("GetNATRSIPStatus", null);
 
-            status.NATEnabled = Convert.ToBoolean(document.Descendants("NewNATEnabled").First().Value);
-            status.RSIPAvailable = Convert.ToBoolean(document.Descendants("NewRSIPAvailable").First().Value);
+            status.NATEnabled = document.Descendants("NewNATEnabled").First().Value == "1";
+            status.RSIPAvailable = document.Descendants("NewRSIPAvailable").First().Value == "1";
 
             return status;
         }
