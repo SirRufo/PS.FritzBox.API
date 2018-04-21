@@ -202,7 +202,7 @@ namespace PS.FritzBox.API
             XDocument document = await this.Invoke("GetLinkLayerMaxBitRates", null);
 
             bitRates.DownstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewDownstreamMaxBitRate").First().Value);
-            bitRates.UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("UpstreamMaxBitRate").First().Value);
+            bitRates.UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewUpstreamMaxBitRate").First().Value);
             return bitRates;
         }
     }
