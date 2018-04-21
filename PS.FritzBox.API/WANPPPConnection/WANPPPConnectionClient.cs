@@ -149,7 +149,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Method to force the termination of the ppp connection
         /// </summary>
-        public async void ForceTerminationAsync()
+        public async Task ForceTerminationAsync()
         {
             XDocument document = await this.InvokeAsync("ForceTermination", null);
         }
