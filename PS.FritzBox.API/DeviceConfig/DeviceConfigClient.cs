@@ -43,7 +43,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Method to invoke a reboot
         /// </summary>
-        public async void RebootAsync()
+        public async Task RebootAsync()
         {
             XDocument document = await this.InvokeAsync( "Reboot", null );
         }
