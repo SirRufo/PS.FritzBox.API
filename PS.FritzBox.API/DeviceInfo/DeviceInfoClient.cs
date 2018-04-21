@@ -37,7 +37,7 @@ namespace PS.FritzBox.API
         public async Task<DeviceInfo> GetDeviceInfoAsync()
         {
             // call the device info here and fill it with data
-            XDocument document = await this.InvokeAsync( "GetInfo", null );
+            XDocument document = await this.InvokeAsync( "GetInfo", null ).ConfigureAwait( false );
 
             DeviceInfo info = new DeviceInfo();
             info.ManufacturerName = document.Descendants( "NewManufacturerName" ).First().Value;
@@ -61,7 +61,7 @@ namespace PS.FritzBox.API
         /// <returns>the device log</returns>
         public async Task<IEnumerable<string>> GetDeviceLogAsync()
         {
-            XDocument document = await this.InvokeAsync( "GetDeviceLog", null );
+            XDocument document = await this.InvokeAsync( "GetDeviceLog", null ).ConfigureAwait( false );
             return document.Descendants( "NewDeviceLog" ).First().Value.Split( new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries ).AsEnumerable();
         }
 
@@ -71,7 +71,7 @@ namespace PS.FritzBox.API
         /// <returns>the security port</returns>
         public async Task<UInt16> GetSecurityPortAsync()
         {
-            XDocument document = await this.InvokeAsync( "GetSecurityPort", null );
+            XDocument document = await this.InvokeAsync( "GetSecurityPort", null ).ConfigureAwait( false );
             return Convert.ToUInt16( document.Descendants( "NewSecurityPort" ).First().Value );
         }
     }

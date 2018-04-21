@@ -32,7 +32,7 @@ namespace PS.FritzBox.API
         public async Task<XDocument> InvokeAsync( string url, SoapRequestParameters parameters )
         {
             string envelope = this.CreateEnvelope( parameters );
-            return await this.ExecuteAsync( envelope, url, parameters );
+            return await this.ExecuteAsync( envelope, url, parameters ).ConfigureAwait( false );
         }
 
         /// <summary>
@@ -83,14 +83,14 @@ namespace PS.FritzBox.API
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue( "text/xml" );
                 request.Headers.Add( "SOAPAction", $"{parameters.SoapAction}" );
 
-                HttpResponseMessage response = await client.SendAsync( request );
+                HttpResponseMessage response = await client.SendAsync( request ).ConfigureAwait( false );
 
                 if ( !response.IsSuccessStatusCode )
                 {
                     throw new Exception( response.ReasonPhrase );
                 }
 
-                Stream stream = await response.Content.ReadAsStreamAsync();
+                Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait( false );
                 var sr = new StreamReader( stream );
                 var soapResponse = XDocument.Load( sr );
 

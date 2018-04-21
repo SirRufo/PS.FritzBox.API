@@ -37,15 +37,15 @@ namespace PS.FritzBox.API
         /// </summary>
         public async Task FactoryResetAsync()
         {
-            XDocument document = await this.InvokeAsync( "FactoryReset", null );
+            XDocument document = await this.InvokeAsync( "FactoryReset", null ).ConfigureAwait( false );
         }
 
         /// <summary>
         /// Method to invoke a reboot
         /// </summary>
-        public async Task RebootAsync()
+        public Task RebootAsync()
         {
-            XDocument document = await this.InvokeAsync( "Reboot", null );
+            return this.InvokeAsync( "Reboot", null );
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace PS.FritzBox.API
         /// <returns>the url to the config file</returns>
         public async Task<string> GetConfigFileAsync( string password )
         {
-            XDocument document = await this.InvokeAsync( "X_AVM-DE_GetConfigFile", new SoapRequestParameter( "NewX_AVM-DE_Password", password ) );
+            XDocument document = await this.InvokeAsync( "X_AVM-DE_GetConfigFile", new SoapRequestParameter( "NewX_AVM-DE_Password", password ) ).ConfigureAwait( false );
             string configFile = document.Descendants( "NewX_AVM-DE_ConfigFileUrl" ).First().Value;
 
             Uri uri = default( Uri );
@@ -71,9 +71,9 @@ namespace PS.FritzBox.API
         /// <param name="path">the path to save the file to</param>
         public async void DownloadConfigFileAsync( string password, string path )
         {
-            string configFile = await this.GetConfigFileAsync( password );
+            string configFile = await this.GetConfigFileAsync( password ).ConfigureAwait( false );
             // replace url
-            byte[] fileContent = await this.DownloadFileAsync( configFile );
+            byte[] fileContent = await this.DownloadFileAsync( configFile ).ConfigureAwait( false );
 
             File.WriteAllBytes( path, fileContent );
         }
@@ -85,7 +85,7 @@ namespace PS.FritzBox.API
         /// <param name="url">the url to the config file</param>
         public async void SetConfigFileAsync( string password, string url )
         {
-            XDocument document = await this.InvokeAsync( "X_AVM-DE_SetConfigFile", new SoapRequestParameter( "NewX_AVM-DE_Password", password ), new SoapRequestParameter( "NewX_AVM-DE_ConfigFileUrl", url ) );
+            XDocument document = await this.InvokeAsync( "X_AVM-DE_SetConfigFile", new SoapRequestParameter( "NewX_AVM-DE_Password", password ), new SoapRequestParameter( "NewX_AVM-DE_ConfigFileUrl", url ) ).ConfigureAwait( false );
             // parse the result
         }
 
@@ -104,7 +104,7 @@ namespace PS.FritzBox.API
                 {
                     if ( result.IsSuccessStatusCode )
                     {
-                        return await result.Content.ReadAsByteArrayAsync();
+                        return await result.Content.ReadAsByteArrayAsync().ConfigureAwait( false );
                     }
 
                 }

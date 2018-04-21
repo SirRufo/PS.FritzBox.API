@@ -34,7 +34,7 @@ namespace PS.FritzBox.API
         /// <param name="enable"></param>
         public async void SetEnableAsync( bool enable )
         {
-            XDocument document = await this.InvokeAsync( "SetEnable", new SoapRequestParameter( "NewEnable", enable ? "1" : "0" ) );
+            XDocument document = await this.InvokeAsync( "SetEnable", new SoapRequestParameter( "NewEnable", enable ? "1" : "0" ) ).ConfigureAwait( false );
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace PS.FritzBox.API
         /// <returns></returns>
         public async Task<LANEthernetInterfaceInfo> GetInfoAsync()
         {
-            XDocument document = await this.InvokeAsync( "GetInfo", null );
+            XDocument document = await this.InvokeAsync( "GetInfo", null ).ConfigureAwait( false );
 
             LANEthernetInterfaceInfo info = new LANEthernetInterfaceInfo();
             info.Enable = document.Descendants( "NewEnable" ).First().Value == "1";
@@ -62,7 +62,7 @@ namespace PS.FritzBox.API
         /// <returns>the lan interface statistics</returns>
         public async Task<LANStatistics> GetStatisticsAsync()
         {
-            XDocument document = await this.InvokeAsync( "GetStatistics", null );
+            XDocument document = await this.InvokeAsync( "GetStatistics", null ).ConfigureAwait( false );
             LANStatistics statistics = new LANStatistics();
             statistics.BytesSent = Convert.ToUInt32( document.Descendants( "NewBytesSent" ).First().Value );
             statistics.BytesReceived = Convert.ToUInt32( document.Descendants( "NewBytesReceived" ).First().Value );

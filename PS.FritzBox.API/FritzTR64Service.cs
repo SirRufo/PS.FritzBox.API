@@ -83,7 +83,7 @@ namespace PS.FritzBox.API
             if ( parameter != null )
                 parameters.Parameters.AddRange( parameter );
 
-            XDocument soapResult = await client.InvokeAsync( this.Url, parameters );
+            XDocument soapResult = await client.InvokeAsync( this.Url, parameters ).ConfigureAwait( false );
 
             this.ParseSoapFault( soapResult );
 
