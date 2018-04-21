@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -35,7 +34,7 @@ namespace PS.FritzBox.API
             CommonLinkProperties properties = new CommonLinkProperties();
             properties.WANAccessType = document.Descendants("NewWANAccessType").First().Value;
             properties.PhysicalLinkStatus = document.Descendants("NewPhysicalLinkStatus").First().Value;
-            properties.Layer1DownstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewLayer1DownStreamMaxBitRate").First().Value);
+            properties.Layer1DownstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewLayer1DownstreamMaxBitRate").First().Value);
             properties.Layer1UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewLayer1UpstreamMaxBitRate").First().Value);
 
             return properties;
@@ -81,7 +80,7 @@ namespace PS.FritzBox.API
         /// <returns>the total packets received</returns>
         public async Task<UInt32> GetTotalPacketsReceived()
         {
-            XDocument document = await this.Invoke("GetTotalPacketsReceived", null);            
+            XDocument document = await this.Invoke("GetTotalPacketsReceived", null);
             return Convert.ToUInt32(document.Descendants("NewTotalPacketsReceived").First().Value);
         }
 
@@ -101,7 +100,7 @@ namespace PS.FritzBox.API
         /// <remarks>Internal invokes X_AVM-DE_GetOnlineMonitor on device</remarks>
         /// <param name="groupIndex">the group index to request the online monitor for</param>
         /// <returns>the online monitor info</returns>
-        public async Task<OnlineMonitorInfo> GetOnlineMonitor(UInt32 groupIndex)  
+        public async Task<OnlineMonitorInfo> GetOnlineMonitor(UInt32 groupIndex)
         {
             XDocument document = await this.Invoke("X_AVM-DE_GetOnlineMonitor", new SoapRequestParameter("NewSyncGroupIndex", groupIndex));
 
