@@ -26,18 +26,18 @@ namespace PS.FritzBox.API
         /// Method to set the interface enabled
         /// </summary>
         /// <param name="enable"></param>
-        public async void SetEnable(bool enable)
+        public async void SetEnableAsync(bool enable)
         {
-            XDocument document = await this.Invoke("SetEnable", new SoapRequestParameter("NewEnable", enable ? "1" : "0"));
+            XDocument document = await this.InvokeAsync("SetEnable", new SoapRequestParameter("NewEnable", enable ? "1" : "0"));
         }
 
         /// <summary>
         /// Method to get the lan ethernet interface informations
         /// </summary>
         /// <returns></returns>
-        public async Task<LANEthernetInterfaceInfo> GetInfo()
+        public async Task<LANEthernetInterfaceInfo> GetInfoAsync()
         {
-            XDocument document = await this.Invoke("GetInfo", null);
+            XDocument document = await this.InvokeAsync("GetInfo", null);
 
             LANEthernetInterfaceInfo info = new LANEthernetInterfaceInfo();
             info.Enable = document.Descendants("NewEnable").First().Value == "1";
@@ -54,9 +54,9 @@ namespace PS.FritzBox.API
         /// Method to get lan interface statistics
         /// </summary>
         /// <returns>the lan interface statistics</returns>
-        public async Task<LANStatistics> GetStatistics()
+        public async Task<LANStatistics> GetStatisticsAsync()
         {
-            XDocument document = await this.Invoke("GetStatistics", null);
+            XDocument document = await this.InvokeAsync("GetStatistics", null);
             LANStatistics statistics = new LANStatistics();
             statistics.BytesSent = Convert.ToUInt32(document.Descendants("NewBytesSent").First().Value);
             statistics.BytesReceived = Convert.ToUInt32(document.Descendants("NewBytesReceived").First().Value);

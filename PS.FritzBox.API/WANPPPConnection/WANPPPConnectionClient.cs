@@ -28,10 +28,10 @@ namespace PS.FritzBox.API
         /// Method to get the wan ppp connection info
         /// </summary>
         /// <returns></returns>
-        public async Task<WANPPPConnectionInfo> GetInfo()
+        public async Task<WANPPPConnectionInfo> GetInfoAsync()
         {
             WANPPPConnectionInfo info = new WANPPPConnectionInfo();
-            XDocument document = await this.Invoke("GetInfo", null);
+            XDocument document = await this.InvokeAsync("GetInfo", null);
 
             // connection status values
             info.ConnectionStatus.ConnectionStatus = document.Descendants("NewConnectionStatus").First().Value;
@@ -67,11 +67,11 @@ namespace PS.FritzBox.API
         /// Method to get the connection type info
         /// </summary>
         /// <returns>the connection type info</returns>
-        public async Task<ConnectionTypeInfo> GetConnectionTypeInfo()
+        public async Task<ConnectionTypeInfo> GetConnectionTypeInfoAsync()
         {
             ConnectionTypeInfo info = new ConnectionTypeInfo();
 
-            XDocument document = await this.Invoke("GetConnectionTypeInfo", null);
+            XDocument document = await this.InvokeAsync("GetConnectionTypeInfo", null);
 
             info.ConnectionType = document.Descendants("NewConnectionType").First().Value;
             info.PossibleConnectionTypes = document.Descendants("NewPossibleConnectionTypes").First().Value;
@@ -83,17 +83,17 @@ namespace PS.FritzBox.API
         /// Method to set the connection type
         /// </summary>
         /// <param name="connectionType">the new connection type</param>
-        public async void SetConnectionType(string connectionType)
+        public async void SetConnectionTypeAsync(string connectionType)
         {
             var parameter = new SoapRequestParameter("NewConnectionType", connectionType);
-            XDocument document = await this.Invoke("SetConnectionType", parameter);
+            XDocument document = await this.InvokeAsync("SetConnectionType", parameter);
         }
 
-        public async Task<ConnectionStatusInfo> GetStatusInfo()
+        public async Task<ConnectionStatusInfo> GetStatusInfoAsync()
         {
             ConnectionStatusInfo info = new ConnectionStatusInfo();
 
-            XDocument document = await this.Invoke("GetStatusInfo", null);
+            XDocument document = await this.InvokeAsync("GetStatusInfo", null);
 
             info.ConnectionStatus = document.Descendants("NewConnectionStatus").First().Value;
             info.LastConnectionError = document.Descendants("NewLastConnectionError").First().Value;
@@ -105,9 +105,9 @@ namespace PS.FritzBox.API
         /// Method to get the username
         /// </summary>
         /// <returns>the user name</returns>
-        public async Task<string> GetUserName()
+        public async Task<string> GetUserNameAsync()
         {
-            XDocument document = await this.Invoke("GetUserName", null);
+            XDocument document = await this.InvokeAsync("GetUserName", null);
             return document.Descendants("NewUserName").First().Value;
         }
 
@@ -115,30 +115,30 @@ namespace PS.FritzBox.API
         /// Method to set the user name
         /// </summary>
         /// <param name="userName">the new username</param>
-        public async void SetUserName(string userName)
+        public async void SetUserNameAsync(string userName)
         {
             var parameter = new SoapRequestParameter("NewUserName", userName);
-            XDocument document = await this.Invoke("SetUserName", parameter);
+            XDocument document = await this.InvokeAsync("SetUserName", parameter);
         }
 
         /// <summary>
         /// Method to set the password
         /// </summary>
         /// <param name="password">the new password</param>
-        public async void SetPassword(string password)
+        public async void SetPasswordAsync(string password)
         {
             var parameter = new SoapRequestParameter("NewPassword", password);
-            XDocument document = await this.Invoke("SetPassword", parameter);
+            XDocument document = await this.InvokeAsync("SetPassword", parameter);
         }
 
         /// <summary>
         /// Method to get the nat rsip status
         /// </summary>
         /// <returns>the nat rsipstatus</returns>
-        public async Task<NATRSIPStatus> GetNATRSIPStatus()
+        public async Task<NATRSIPStatus> GetNATRSIPStatusAsync()
         {
             NATRSIPStatus status = new NATRSIPStatus();
-            XDocument document = await this.Invoke("GetNATRSIPStatus", null);
+            XDocument document = await this.InvokeAsync("GetNATRSIPStatus", null);
 
             status.NATEnabled = document.Descendants("NewNATEnabled").First().Value == "1";
             status.RSIPAvailable = document.Descendants("NewRSIPAvailable").First().Value == "1";
@@ -149,26 +149,26 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Method to force the termination of the ppp connection
         /// </summary>
-        public async void ForceTermination()
+        public async void ForceTerminationAsync()
         {
-            XDocument document = await this.Invoke("ForceTermination", null);
+            XDocument document = await this.InvokeAsync("ForceTermination", null);
         }
 
         /// <summary>
         /// Method to request a ppp connection
         /// </summary>
-        public async void RequestConnection()
+        public async void RequestConnectionAsync()
         {
-            XDocument document = await this.Invoke("RequestConnection", null);
+            XDocument document = await this.InvokeAsync("RequestConnection", null);
         }
 
         /// <summary>
         /// Method to get the external ip address
         /// </summary>
         /// <returns>the external ip address</returns>
-        public async Task<string> GetExternalIPAddress()
+        public async Task<string> GetExternalIPAddressAsync()
         {
-            XDocument document = await this.Invoke("GetExternalIPAddress", null);
+            XDocument document = await this.InvokeAsync("GetExternalIPAddress", null);
             return document.Descendants("NewExternalIPAddress").First().Value;
         }
 
@@ -176,9 +176,9 @@ namespace PS.FritzBox.API
         /// Method to get the dns servers
         /// </summary>
         /// <returns>the dns servers</returns>
-        public async Task<string> GetDNSServers()
+        public async Task<string> GetDNSServersAsync()
         {
-            XDocument document = await this.Invoke("X_GetDNSServers", null);
+            XDocument document = await this.InvokeAsync("X_GetDNSServers", null);
             return document.Descendants("NewDNSServers").First().Value;
         }
 
@@ -186,20 +186,20 @@ namespace PS.FritzBox.API
         /// Method to set the dns servers
         /// </summary>
         /// <param name="dnsServers">the dns servers</param>
-        public async void SetDNSServers(string dnsServers)
+        public async void SetDNSServersAsync(string dnsServers)
         {
             var parameter = new SoapRequestParameter("NewDNSServers", dnsServers);
-            XDocument document = await this.Invoke("X_SetDNSServers", parameter);
+            XDocument document = await this.InvokeAsync("X_SetDNSServers", parameter);
         }
 
         /// <summary>
         /// Method to get the link layer max bitrates
         /// </summary>
         /// <returns>the link layer max bitrates</returns>
-        public async Task<LinkLayerMaxBitRates> GetLinkLayerMaxBitRates()
+        public async Task<LinkLayerMaxBitRates> GetLinkLayerMaxBitRatesAsync()
         {
             LinkLayerMaxBitRates bitRates = new LinkLayerMaxBitRates();
-            XDocument document = await this.Invoke("GetLinkLayerMaxBitRates", null);
+            XDocument document = await this.InvokeAsync("GetLinkLayerMaxBitRates", null);
 
             bitRates.DownstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewDownstreamMaxBitRate").First().Value);
             bitRates.UpstreamMaxBitRate = Convert.ToUInt32(document.Descendants("NewUpstreamMaxBitRate").First().Value);

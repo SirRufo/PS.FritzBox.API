@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -24,21 +23,21 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Gets the control url
         /// </summary>
-        protected override string ControlUrl => "/tr064/upnp/control/deviceinfo"; 
+        protected override string ControlUrl => "/tr064/upnp/control/deviceinfo";
 
         /// <summary>
         /// Gets the request namespace
         /// </summary>
-        protected override string RequestNameSpace => "urn:dslforum-org:service:DeviceInfo:1";  
+        protected override string RequestNameSpace => "urn:dslforum-org:service:DeviceInfo:1";
 
         /// <summary>
         /// Method to get the device info
         /// </summary>
         /// <returns>the device info</returns>
-        public async Task<DeviceInfo> GetDeviceInfo()
+        public async Task<DeviceInfo> GetDeviceInfoAsync()
         {
             // call the device info here and fill it with data
-            XDocument document = await this.Invoke("GetInfo", null);
+            XDocument document = await this.InvokeAsync("GetInfo", null);
 
             DeviceInfo info = new DeviceInfo();
             info.ManufacturerName = document.Descendants("NewManufacturerName").First().Value;
@@ -57,12 +56,12 @@ namespace PS.FritzBox.API
         }
 
         /// <summary>
-        /// Method to get the device log 
+        /// Method to get the device log
         /// </summary>
         /// <returns>the device log</returns>
-        public async Task<IEnumerable<string>> GetDeviceLog()
+        public async Task<IEnumerable<string>> GetDeviceLogAsync()
         {
-            XDocument document = await this.Invoke("GetDeviceLog", null);            
+            XDocument document = await this.InvokeAsync("GetDeviceLog", null);
             return document.Descendants("NewDeviceLog").First().Value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).AsEnumerable();
         }
 
@@ -70,9 +69,9 @@ namespace PS.FritzBox.API
         /// Method to get the security port of the device
         /// </summary>
         /// <returns>the security port</returns>
-        public async Task<UInt16> GetSecurityPort()
+        public async Task<UInt16> GetSecurityPortAsync()
         {
-            XDocument document = await this.Invoke("GetSecurityPort", null);
+            XDocument document = await this.InvokeAsync("GetSecurityPort", null);
             return Convert.ToUInt16(document.Descendants("NewSecurityPort").First().Value);
         }
     }
