@@ -35,7 +35,7 @@ namespace PS.FritzBox.API
         /// <summary>
         /// Method to invoke a factory reset
         /// </summary>
-        public async void FactoryResetAsync()
+        public async Task FactoryResetAsync()
         {
             XDocument document = await this.InvokeAsync( "FactoryReset", null );
         }
