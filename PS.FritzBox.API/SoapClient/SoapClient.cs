@@ -13,6 +13,17 @@ namespace PS.FritzBox.API
     /// </summary>
     internal class SoapClient
     {
+        private HttpClientHandler _handler;
+
+        public SoapClient() : this( new HttpClientHandler() )
+        {
+        }
+
+        public SoapClient( HttpClientHandler handler )
+        {
+            _handler = handler ?? throw new ArgumentNullException( nameof( handler ) );
+        }
+
         /// <summary>
         /// Method to execute the soap request
         /// </summary>
@@ -46,7 +57,6 @@ namespace PS.FritzBox.API
             return sb.ToString();
         }
 
-
         /// <summary>
         /// Method to execute a given soap request
         /// </summary>
@@ -56,11 +66,10 @@ namespace PS.FritzBox.API
         /// <returns></returns>
         private async Task<XDocument> ExecuteAsync( string xmlSOAP, string url, SoapRequestParameters parameters )
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = delegate { return true; };
-            handler.Credentials = parameters.Credentials;
+            _handler.ServerCertificateCustomValidationCallback = delegate { return true; };
+            _handler.Credentials = parameters.Credentials;
 
-            using ( System.Net.Http.HttpClient client = new HttpClient( handler ) )
+            using ( System.Net.Http.HttpClient client = new HttpClient( _handler ) )
             {
                 var request = new HttpRequestMessage()
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -11,6 +12,10 @@ namespace PS.FritzBox.API
     public class WANPPPConnectionClient : FritzTR64Client
     {
         public WANPPPConnectionClient( string url, int timeout ) : base( url, timeout )
+        {
+        }
+
+        public WANPPPConnectionClient( string url, int timeout, HttpClientHandler handler ) : base( url, timeout, handler )
         {
         }
 

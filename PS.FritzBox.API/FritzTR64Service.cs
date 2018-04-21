@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -10,6 +11,7 @@ namespace PS.FritzBox.API
     /// </summary>
     public abstract class FritzTR64Client
     {
+        private readonly HttpClientHandler _handler;
         #region Construction / Destruction
 
         /// <summary>
@@ -17,10 +19,20 @@ namespace PS.FritzBox.API
         /// </summary>
         /// <param name="url">the service url</param>
         /// <param name="timeout">the timeout in milliseconds</param>
-        public FritzTR64Client( string url, int timeout )
+        public FritzTR64Client( string url, int timeout ) : this( url, timeout, new HttpClientHandler() )
+        {
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="timeout"></param>
+        /// <param name="handler"></param>
+        public FritzTR64Client( string url, int timeout, HttpClientHandler handler )
         {
             this.Url = String.Concat( url, this.ControlUrl );
             this.Timeout = timeout;
+            _handler = handler;
         }
 
         #endregion
@@ -56,7 +68,7 @@ namespace PS.FritzBox.API
         /// <returns></returns>
         internal async Task<XDocument> InvokeAsync( string action, params SoapRequestParameter[] parameter )
         {
-            SoapClient client = new SoapClient();
+            SoapClient client = new SoapClient( _handler );
             SoapRequestParameters parameters = new SoapRequestParameters();
 
             parameters.UserName = this.UserName;

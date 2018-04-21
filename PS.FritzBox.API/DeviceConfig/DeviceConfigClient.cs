@@ -17,6 +17,10 @@ namespace PS.FritzBox.API
         {
 
         }
+        public DeviceConfigClient( string url, int timeout, HttpClientHandler handler ) : base( url, timeout, handler )
+        {
+
+        }
 
         /// <summary>
         /// Gets the control url

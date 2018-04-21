@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -8,6 +9,11 @@ namespace PS.FritzBox.API
     public class LANEthernetInterfaceClient : FritzTR64Client
     {
         public LANEthernetInterfaceClient( string url, int timeout ) : base( url, timeout )
+        {
+
+        }
+
+        public LANEthernetInterfaceClient( string url, int timeout, HttpClientHandler handler ) : base( url, timeout, handler )
         {
 
         }
