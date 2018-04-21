@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -44,7 +42,8 @@ namespace PS.FritzBox.API
             LANEthernetInterfaceInfo info = new LANEthernetInterfaceInfo();
             info.Enable = document.Descendants("NewEnable").First().Value == "1";
             info.MACAddress = document.Descendants("NewMACAddress").First().Value;
-            info.MaxBitRate = Convert.ToUInt32(document.Descendants("NewMaxBitRate").First().Value);
+            // NewMaxBitRate can also be set to "Auto"
+            info.MaxBitRate = UInt32.TryParse(document.Descendants("NewMaxBitRate").First().Value, out uint val) ? val : 0;
             info.Status = document.Descendants("NewStatus").First().Value;
             info.DuplexMode = document.Descendants("NewDuplexMode").First().Value;
 
