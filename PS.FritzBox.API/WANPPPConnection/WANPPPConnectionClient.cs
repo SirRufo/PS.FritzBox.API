@@ -39,8 +39,8 @@ namespace PS.FritzBox.API
             XDocument document = await this.InvokeAsync( "GetInfo", null ).ConfigureAwait( false );
 
             // connection status values
-            info.ConnectionStatus.ConnectionStatus = document.Descendants( "NewConnectionStatus" ).First().Value;
-            info.ConnectionStatus.LastConnectionError = document.Descendants( "NewLastConnectionError" ).First().Value;
+            info.ConnectionStatus.ConnectionStatus = (ConnectionStatus)Enum.Parse( typeof( ConnectionStatus ), document.Descendants( "NewConnectionStatus" ).First().Value );
+            info.ConnectionStatus.LastConnectionError = (ConnectionError)Enum.Parse( typeof( ConnectionError ), document.Descendants( "NewLastConnectionError" ).First().Value );
             info.ConnectionStatus.Uptime = Convert.ToUInt32( document.Descendants( "NewUptime" ).First().Value );
             // connecton type values
             info.ConnectionType.ConnectionType = document.Descendants( "NewConnectionType" ).First().Value;
@@ -100,8 +100,8 @@ namespace PS.FritzBox.API
 
             XDocument document = await this.InvokeAsync( "GetStatusInfo", null ).ConfigureAwait( false );
 
-            info.ConnectionStatus = document.Descendants( "NewConnectionStatus" ).First().Value;
-            info.LastConnectionError = document.Descendants( "NewLastConnectionError" ).First().Value;
+            info.ConnectionStatus = (ConnectionStatus)Enum.Parse( typeof( ConnectionStatus ), document.Descendants( "NewConnectionStatus" ).First().Value );
+            info.LastConnectionError = (ConnectionError)Enum.Parse( typeof( ConnectionError ), document.Descendants( "NewLastConnectionError" ).First().Value );
             info.Uptime = Convert.ToUInt32( document.Descendants( "NewUptime" ).First().Value );
             return info;
         }

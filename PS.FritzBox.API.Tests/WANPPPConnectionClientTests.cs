@@ -12,8 +12,8 @@ namespace PS.FritzBox.API.Tests
         {
             var expected = new ConnectionStatusInfo
             {
-                ConnectionStatus = "Moin",
-                LastConnectionError = "NONE",
+                ConnectionStatus = ConnectionStatus.Connected,
+                LastConnectionError = ConnectionError.ERROR_NONE,
                 Uptime = 1000,
             };
             var handler = new FakeHandler();
