@@ -97,7 +97,7 @@ namespace PS.FritzBox.API
 
             info.ConnectionStatus = document.Descendants("NewConnectionStatus").First().Value;
             info.LastConnectionError = document.Descendants("NewLastConnectionError").First().Value;
-            info.Uptime = Convert.ToUInt32(document.Descendants("NewUpTime").First().Value);
+            info.Uptime = Convert.ToUInt32(document.Descendants("NewUptime").First().Value);
             return info;
         }
 
