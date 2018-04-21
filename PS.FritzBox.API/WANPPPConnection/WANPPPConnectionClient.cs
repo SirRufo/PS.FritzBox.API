@@ -186,7 +186,7 @@ namespace PS.FritzBox.API
         /// Method to set the dns servers
         /// </summary>
         /// <param name="dnsServers">the dns servers</param>
-        public async void SetDNSServersAsync(string dnsServers)
+        public async Task SetDNSServersAsync(string dnsServers)
         {
             var parameter = new SoapRequestParameter("NewDNSServers", dnsServers);
             XDocument document = await this.InvokeAsync("X_SetDNSServers", parameter);
