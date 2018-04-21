@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -78,9 +75,9 @@ namespace PS.FritzBox.API
             return soapResult;
         }
 
-        internal async void ParseSoapFault(XDocument document)
+        internal void ParseSoapFault(XDocument document)
         {
-            if(document.Descendants("Fault").Count() > 0)
+            if (document.Descendants("Fault").Count() > 0)
             {
                 string code = document.Descendants("faultcode").First().Value;
                 string text = document.Descendants("faultstring").First().Value;
