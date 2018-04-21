@@ -83,7 +83,7 @@ namespace PS.FritzBox.API
         /// Method to set the connection type
         /// </summary>
         /// <param name="connectionType">the new connection type</param>
-        public async void SetConnectionTypeAsync(string connectionType)
+        public async Task SetConnectionTypeAsync(string connectionType)
         {
             var parameter = new SoapRequestParameter("NewConnectionType", connectionType);
             XDocument document = await this.InvokeAsync("SetConnectionType", parameter);
